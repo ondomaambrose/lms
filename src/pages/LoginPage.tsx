@@ -2,15 +2,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { CustomFormField } from "@/components/CustomFormField";
+import { Form } from "@/components/ui/form";
 import { useState } from "react";
 
 //validation schema
@@ -50,47 +43,24 @@ export default function LoginPage() {
         </h2>
 
         <Form {...form}>
-          <form className="flex flex-col gap-6">
-            <FormField
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-6"
+          >
+            <CustomFormField
               control={form.control}
               name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-gray-300 font-medium">
-                    Email
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="email"
-                      placeholder="email@example.com"
-                      {...field}
-                      className="bg-white text-black border-none focus:ring-blue-500"
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-400 font-bold pt-5" />
-                </FormItem>
-              )}
+              label="Email"
+              placeholder="email@example.com"
+              type="email"
             />
 
-            <FormField
+            <CustomFormField
               control={form.control}
               name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-gray-300 font-medium">
-                    Password
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Enter your password"
-                      {...field}
-                      className="bg-white text-black border-none focus:ring-blue-500"
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-400 font-bold pt-5" />
-                </FormItem>
-              )}
+              label="Password"
+              placeholder="Enter your password"
+              type="password"
             />
 
             <Button
