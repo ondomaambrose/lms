@@ -25,7 +25,7 @@ export default function Profile() {
             <Label className="text-xs font-bold uppercase text-slate-400">
               Full Name
             </Label>
-            <p className="text-sm font-medium p-3 bg-slate-50 rounded-md border border-slate-100 min-h-[44px] flex items-center text-slate-700">
+            <p className="text-sm font-medium p-3 bg-slate-50 rounded-md border border-slate-100 min-h-11 flex items-center text-slate-700">
               {user?.name || "No name provided"}
             </p>
           </div>
@@ -33,7 +33,7 @@ export default function Profile() {
             <Label className="text-xs font-bold uppercase text-slate-400">
               Email Address
             </Label>
-            <p className="text-sm font-medium p-3 bg-slate-50 rounded-md border border-slate-100 min-h-[44px] flex items-center text-slate-700">
+            <p className="text-sm font-medium p-3 bg-slate-50 rounded-md border border-slate-100 min-h-11 flex items-center text-slate-700">
               {user?.email || "No email provided"}
             </p>
           </div>
