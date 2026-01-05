@@ -1,5 +1,5 @@
 import { Menu, Bell, Search } from "lucide-react";
-import { useLocation } from "react-router-dom"; // Import location hook
+import { useLocation } from "react-router-dom";
 
 interface StatusBarProps {
   onToggleSidebar: () => void;
@@ -8,7 +8,7 @@ interface StatusBarProps {
 export function StatusBar({ onToggleSidebar }: StatusBarProps) {
   const location = useLocation();
 
-  // Helper function to decide what text to show based on the URL
+  // Decide URL path
   const getHeaderInfo = () => {
     const path = location.pathname;
 
