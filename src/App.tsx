@@ -4,6 +4,7 @@ import "./App.css";
 import SignupPage from "./pages/SignupPage";
 import { HomeLayout } from "./components/HomeLayout";
 import DashboardHome from "./pages/HomePage";
+import CourseDetailPage from "./pages/CourseDetailPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
 
         <Route path="/dashboard" element={<HomeLayout />}>
           <Route index element={<DashboardHome />} />
+          <Route path="courses/:courseId" element={<CourseDetailPage />} />
         </Route>
 
         <Route path="*" element={<div>404 Not Found</div>} />
