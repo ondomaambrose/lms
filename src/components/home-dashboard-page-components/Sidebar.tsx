@@ -1,7 +1,8 @@
 import DashboardNav from "../sidebar-components/DashboardNav";
 import CoursesNav from "../sidebar-components/CoursesNav";
 import AccountNav from "../sidebar-components/AccountNav";
-import { LogOut, Layers } from "lucide-react";
+import { Layers } from "lucide-react";
+import SidebarFooter from "../sidebar-components/SidebarFooter";
 
 export function Sidebar() {
   return (
@@ -22,12 +23,7 @@ export function Sidebar() {
       </nav>
 
       {/* Sidebar Footer */}
-      <div className="p-4 border-t border-white">
-        <button className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-red-500 hover:bg-red-950/30 transition-colors">
-          <LogOut className="h-5 w-5" />
-          <span className="font-medium">Logout</span>
-        </button>
-      </div>
+      <SidebarFooter />
     </aside>
   );
 }
