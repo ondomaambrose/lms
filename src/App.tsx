@@ -1,8 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router";
+import { BrowserRouter as Router, Routes, Route } from "react-router"; // or react-router-dom
 import LoginPage from "@/pages/LoginPage";
 import "./App.css";
 import SignupPage from "./pages/SignupPage";
-import HomePage from "./pages/HomePage";
+import { HomeLayout } from "./components/HomeLayout";
+import DashboardHome from "./pages/HomePage";
 
 function App() {
   return (
@@ -10,7 +11,11 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/" element={<HomePage />} />
+
+        <Route path="/dashboard" element={<HomeLayout />}>
+          <Route index element={<DashboardHome />} />
+        </Route>
+
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </Router>
