@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { CustomFormField } from "@/components/CustomFormField";
 import { Link, useNavigate } from "react-router-dom";
-import { useUser } from "@/context/UserContext";
+import { UseUser } from "@/context/UserContext";
 
 // Validation schema with Password Matching
 const signupSchema = z
@@ -23,7 +23,7 @@ const signupSchema = z
   });
 
 export default function SignupPage() {
-  const { login } = useUser();
+  const { login } = UseUser();
   const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof signupSchema>>({
