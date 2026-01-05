@@ -1,11 +1,11 @@
 import { LogOut, User } from "lucide-react";
 import { getInitials } from "@/utilities/getInitials"; // Import the utility function
-import { useUser } from "@/context/UserContext";
+import { UseUser } from "@/context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 export default function SidebarFooter() {
   const navigate = useNavigate();
-  const { user, logout } = useUser();
+  const { user, logout } = UseUser();
 
   const handleLogout = () => {
     logout(); // This clears the state and localStorage

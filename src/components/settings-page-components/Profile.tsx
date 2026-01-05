@@ -1,5 +1,5 @@
 import { User } from "lucide-react";
-import { useUser } from "@/context/UserContext";
+import { UseUser } from "@/context/UserContext";
 import {
   Card,
   CardContent,
@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
 export default function Profile() {
-  const { user } = useUser();
+  const { user } = UseUser();
   return (
     <Card className="border-none shadow-sm bg-white">
       <CardHeader className="border-b border-slate-50">
