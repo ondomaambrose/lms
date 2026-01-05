@@ -1,4 +1,4 @@
-import { CourseCard } from "@/components/CourseCard";
+import { CourseCard } from "@/components/home-dashboard-page-components/CourseCard";
 
 //import course data, delete when using backend data
 import { courses } from "@/data/courses";

@@ -1,6 +1,6 @@
-import DashboardNav from "./sidebar-components/DashboardNav";
-import CoursesNav from "./sidebar-components/CoursesNav";
-import AccountNav from "./sidebar-components/AccountNav";
+import DashboardNav from "../sidebar-components/DashboardNav";
+import CoursesNav from "../sidebar-components/CoursesNav";
+import AccountNav from "../sidebar-components/AccountNav";
 import { LogOut, Layers } from "lucide-react";
 
 export function Sidebar() {
