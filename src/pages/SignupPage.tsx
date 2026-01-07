@@ -62,7 +62,6 @@ export default function SignupPage() {
       email: userDataJSON.email,
     });
 
-    alert("Check the console (F12) to see the prepared JSON!");
     navigate("/login");
   }
 
