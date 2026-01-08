@@ -120,7 +120,11 @@ export default function SignupPage() {
 
         <p className="text-center text-sm text-green-100 mt-6">
           Already have an account?{" "}
-          <Link to="/login" className="font-bold text-white hover:underline">
+          <Link
+            to="/dashboard
+          "
+            className="font-bold text-white hover:underline"
+          >
             Login
           </Link>
         </p>
