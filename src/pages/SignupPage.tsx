@@ -50,7 +50,7 @@ export default function SignupPage() {
       alert(
         "Account created! Please check your email for a confirmation link."
       );
-      navigate("/login");
+      navigate("/dashboard");
     } catch (error: Error | unknown) {
       const message =
         error instanceof Error
@@ -121,7 +121,7 @@ export default function SignupPage() {
         <p className="text-center text-sm text-green-100 mt-6">
           Already have an account?{" "}
           <Link
-            to="/dashboard
+            to="/login
           "
             className="font-bold text-white hover:underline"
           >

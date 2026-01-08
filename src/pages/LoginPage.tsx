@@ -10,6 +10,7 @@ import { UseUser } from "@/context/UserContext"; // Standardized naming
 import { motion } from "framer-motion";
 import { animations } from "@/lib/animations";
 import { SocialAuth } from "@/components/SocialAuth";
+import { useEffect } from "react";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -18,8 +19,15 @@ const loginSchema = z.object({
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { login } = UseUser();
+  const { login, user } = UseUser();
   const [isLoading, setIsLoading] = useState(false);
+
+  // If the user is already logged in, send them to dashboard automatically
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user, navigate]);
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
