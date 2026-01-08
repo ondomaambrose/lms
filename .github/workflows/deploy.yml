@@ -2,7 +2,7 @@ name: Deploy Vite React App to GitHub Pages
 
 on:
   push:
-    branches: ["master"] # change to "main" if your branch is main
+    branches: ["master"] # Ensure this matches your branch name
 
 permissions:
   contents: read
@@ -13,39 +13,41 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Build
-        run: npm run build
-        env:
-          # This pulls the secrets you just saved and gives them to Vite
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          cache: "npm"
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
+      - name: Build
+        # This is where the magic happens
         run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
-      - name: Upload production files
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist # Vite builds to dist
+          # Vite builds to the 'dist' folder by default
+          path: "./dist"
 
   deploy:
-    needs: build
-    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
+    runs-on: ubuntu-latest
+    needs: build
     steps:
-      - name: Deploy GitHub Pages
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
