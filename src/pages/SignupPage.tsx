@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { animations } from "@/lib/animations";
-import { UseUser } from "@/context/UserContext";
+import { UseUser } from "@/context/UserContext"; // Correct hook usage
 
 const signupSchema = z
   .object({
@@ -24,8 +24,10 @@ const signupSchema = z
 
 export default function SignupPage() {
   const navigate = useNavigate();
-  const { login } = UseUser();
   const [isLoading, setIsLoading] = useState(false);
+
+  // 1. USE THE HOOK CORRECTLY
+  const { signUp } = UseUser();
 
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
@@ -40,29 +42,20 @@ export default function SignupPage() {
   async function onSubmit(values: z.infer<typeof signupSchema>) {
     setIsLoading(true);
 
-    // User data JSON structure contract
-    const userDataJSON = {
-      name: values.fullName,
-      email: values.email,
-      password: values.password, // The backend will hash this later
-      role: "student", // Default role
-      joinedAt: new Date().toISOString(),
-    };
+    try {
+      // 2. CALL THE SIGNUP FROM THE HOOK
+      await signUp(values.email, values.password, values.fullName);
 
-    console.log(
-      "Prepared User Data JSON:",
-      JSON.stringify(userDataJSON, null, 2)
-    );
-
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsLoading(false);
-
-    login({
-      name: userDataJSON.name,
-      email: userDataJSON.email,
-    });
-
-    navigate("/login");
+      alert(
+        "Account created! Please check your email for a confirmation link."
+      );
+      navigate("/login");
+    } catch (error: Error | unknown) {
+      const message = error instanceof Error ? error.message : "An error occurred during signup";
+      alert(message);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -75,9 +68,7 @@ export default function SignupPage() {
       >
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-white">Create Account</h2>
-          <p className="text-green-100 text-sm mt-2">
-            Join our learning community today
-          </p>
+          <p className="text-green-100 text-sm mt-2">Join our community</p>
         </div>
 
         <Form {...form}>
@@ -116,9 +107,9 @@ export default function SignupPage() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold h-12 mt-4"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold h-12 mt-4 transition-all active:scale-95"
             >
-              {isLoading ? "Preparing Data..." : "Sign Up"}
+              {isLoading ? "Creating Account..." : "Sign Up"}
             </Button>
           </form>
         </Form>

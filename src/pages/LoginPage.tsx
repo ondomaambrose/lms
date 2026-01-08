@@ -6,7 +6,7 @@ import { CustomFormField } from "@/components/CustomFormField";
 import { Form } from "@/components/ui/form";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UseUser } from "@/context/UserContext";
+import { UseUser } from "@/context/UserContext"; // Standardized naming
 import { motion } from "framer-motion";
 import { animations } from "@/lib/animations";
 
@@ -22,27 +22,31 @@ export default function LoginPage() {
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues: { email: "", password: "" },
   });
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
     setIsLoading(true);
 
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      // 1. Call the real login from your Context
+      await login({
+        email: values.email,
+        password: values.password,
+      });
 
-    login({
-      email: values.email,
-      name: values.email.split("@")[0], // Dummy name for now
-    });
-
-    setIsLoading(false);
-
-    //navigate to dashboard
-    navigate("/dashboard");
+      // 2. Only navigate if login was successful
+      navigate("/dashboard");
+    } catch (error: unknown) {
+      // 3. Handle errors (e.g., "Invalid login credentials")
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Failed to login. Please check your credentials."
+      );
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -72,7 +76,6 @@ export default function LoginPage() {
               placeholder="email@example.com"
               type="email"
             />
-
             <CustomFormField
               control={form.control}
               name="password"
@@ -84,17 +87,12 @@ export default function LoginPage() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold h-12 rounded-lg transition-all duration-300 mt-4 shadow-lg shadow-blue-900/20"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold h-12 rounded-lg mt-4 shadow-lg shadow-blue-900/20"
             >
-              {isLoading ? (
-                <span className="flex items-center gap-2">
-                  <span className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Authenticating...
-                </span>
-              ) : (
-                "Login"
-              )}
+              {isLoading ? "Authenticating..." : "Login"}
             </Button>
+
+            {/* Optional: Add the Google Login button here since you wanted OAuth */}
           </form>
         </Form>
 
