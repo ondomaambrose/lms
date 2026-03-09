@@ -51,7 +51,7 @@ export default function LoginPage() {
       alert(
         error instanceof Error
           ? error.message
-          : "Failed to login. Please check your credentials."
+          : "Failed to login. Please check your credentials.",
       );
     } finally {
       setIsLoading(false);
