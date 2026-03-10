@@ -1,11 +1,18 @@
 import { createClient } from '@supabase/supabase-js'
 
-// 'process.env' reads directly from the system's environment variables
-const supabaseUrl = process.env.SUPABASE_URL
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-if (!supabaseUrl || !supabaseAnonKey) {
-	throw new Error('Missing Supabase environment variables')
+// More descriptive error handling
+if (!supabaseUrl) {
+	console.error(
+		'Supabase URL is missing. Check your VITE_SUPABASE_URL in .env'
+	)
+}
+if (!supabaseAnonKey) {
+	console.error(
+		'Supabase Anon Key is missing. Check your VITE_SUPABASE_ANON_KEY in .env'
+	)
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
